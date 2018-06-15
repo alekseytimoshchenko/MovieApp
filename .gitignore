@@ -1,0 +1,13 @@
+.idea
+.gradle
+build/
+gradle*
+!gradle-plugins*
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+local.properties
+gen
+
+*.iml
+src/main/java/com/example/admin/follower/ui/coachcreen/coach/
