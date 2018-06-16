@@ -18,7 +18,6 @@ ext {
             glideOkhttp3Version             : "1.4.0@aar",
             loggingInterceptorVersion       : "3.10.0",
             daggerVersion                   : "2.10",
-            butterKnife                     : "8.8.1",
             constraintLayout                : "1.1.2",
             kotlinReflection                : "1.0.0",
             rx2javaVersion                  : "2.1.14",
@@ -29,7 +28,7 @@ ext {
             googlePlayServices              : "15.0.1",
             retrofit2converterJacksonVersion: "2.4.0",
             glideVersion                    : "4.7.1",
-            leakcanary                      : "1.5.4",
+            paging                          : "1.0.0",
             ankoVersion                     : "0.10.3"
     ]
 }

@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.admin.thebestapp.R
+import com.example.admin.thebestapp.app.Constants
 
 class MovieFragment: Fragment(), MovieContract.View
 {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         var rootView = inflater.inflate(R.layout.frag_movie, container, false)
-    
     
         return rootView
     }

@@ -45,14 +45,9 @@ dependencies {
     implementation "com.google.android.gms:play-services-maps:${libs.googlePlayServices}"
 
     //Test
-    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     testImplementation "junit:junit:${test.junit}"
     androidTestImplementation "com.android.support.test:runner:${test.androidJUnitRunner}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:${test.espressoCore}"
-
-    //ButterKnife
-    implementation "com.jakewharton:butterknife:${libs.butterKnife}"
-    annotationProcessor "com.jakewharton:butterknife-compiler:${libs.butterKnife}"
 
     //Dependency Injection
     implementation "com.google.dagger:dagger:${libs.daggerVersion}"
@@ -80,7 +75,6 @@ dependencies {
     // Glide
     implementation "com.github.bumptech.glide:glide:${libs.glideVersion}"
 
-    //Leakcanary
-    debugCompile "com.squareup.leakcanary:leakcanary-android:${libs.leakcanary}"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${libs.leakcanary}"
+    // Paging
+    implementation "android.arch.paging:runtime:${libs.paging}"
 }
