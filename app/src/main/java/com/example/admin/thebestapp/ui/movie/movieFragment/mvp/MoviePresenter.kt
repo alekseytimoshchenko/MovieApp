@@ -17,9 +17,7 @@ class MoviePresenter (private val model: MovieModel): PresenterBase<MovieContrac
     override fun getData(page: Int): PageManager
     {
         return model.getMovies(page)//
-                .map { PageManager(it.results, 0, it.totalPages, 0, it.page) }//
+                .map { PageManager(it.results, 0, it.totalPages, null, it.page) }//
                 .blockingFirst()
-        
-//        return PageManager(arrayListOf(), 0, 20, 0, 2)
     }
 }

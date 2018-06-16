@@ -8,8 +8,7 @@ class MyPageKeyedDataSource(private val movieStorage: MovieContract.Presenter): 
 {
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, MovieObject>)
     {
-        val result = movieStorage.getData(1)
-//        val result = movieStorage.getData(params.requestedLoadSize)
+        val result: PageManager = movieStorage.getData(1)
         
         if(params.placeholdersEnabled)
         {

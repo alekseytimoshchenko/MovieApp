@@ -6,6 +6,7 @@ import android.arch.paging.PagedList
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,12 +22,15 @@ import kotlinx.android.synthetic.main.frag_movie.*
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
+
 class MovieFragment: Fragment(), MovieContract.View
 {
     @Inject
     lateinit var presenter: MovieContract.Presenter
     
     private lateinit var movieAdapter: MovieAdapter
+    
+    private var isPortrait: Boolean = false
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -36,12 +40,11 @@ class MovieFragment: Fragment(), MovieContract.View
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-        
+        isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+    
         App.getApp(context).componentsHolder.getActivityComponent(MovieFragment::class.java, MovieModule()).inject(this)
         presenter.attachView(this)
         presenter.viewIsReady()
-        
-        val isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
     }
     
     override fun setRecyclerViewConfigurations()
@@ -50,7 +53,7 @@ class MovieFragment: Fragment(), MovieContract.View
         
         val config: PagedList.Config = PagedList.Config.Builder() //
                 .setEnablePlaceholders(true) //
-                .setPageSize(10) //
+                .setPageSize(20) //
                 .build()
         
         val pagedListLiveData = //
@@ -85,6 +88,15 @@ class MovieFragment: Fragment(), MovieContract.View
                     movieAdapter.submitList(it)
                 } //
         )
+        
+        if(isPortrait)
+        {
+            rv_frag_movie_movie_list.layoutManager = GridLayoutManager(context, 2)
+        }
+        else
+        {
+            rv_frag_movie_movie_list.layoutManager = GridLayoutManager(context, 3)
+        }
         
         rv_frag_movie_movie_list.adapter = movieAdapter
     }

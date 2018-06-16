@@ -10,7 +10,7 @@ class MovieHolder(itemView: View): RecyclerView.ViewHolder(itemView)
     {
         if(iItem != null)
         {
-        
+//            itemView.findViewById<>()
         }
         else
         {

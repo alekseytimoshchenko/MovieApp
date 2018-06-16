@@ -22,8 +22,7 @@ public class MovieAdapter extends PagedListAdapter<MovieObject, MovieHolder>
 	public MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
 	{
 		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item, parent, false);
-		MovieHolder holder = new MovieHolder(view);
-		return holder;
+		return new MovieHolder(view);
 	}
 	
 	@Override
