@@ -1,29 +1,25 @@
 package com.example.admin.thebestapp.ui.movie.movieFragment.mvp
 
-class MoviePresenter: MovieContract.Presenter
+import com.example.admin.thebestapp.base.mvp.PresenterBase
+import com.example.admin.thebestapp.ui.movie.movieFragment.adapter.PageManager
+
+class MoviePresenter (private val model: MovieModel): PresenterBase<MovieContract.View>(), MovieContract.Presenter
 {
-    override fun attachView(mvpView: MovieContract.View?)
-    {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-    
     override fun viewIsReady()
     {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-    
-    override fun detachView()
-    {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-    
-    override fun destroy()
-    {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view?.setRecyclerViewConfigurations()
     }
     
     override fun onItemClick()
     {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+    
+    override fun getData(page: Int): PageManager
+    {
+        return model.getMovies(page)//
+                .map { PageManager(it.results, 0, it.totalPages, 0, it.page) }//
+                .blockingFirst()
+        
+//        return PageManager(arrayListOf(), 0, 20, 0, 2)
     }
 }

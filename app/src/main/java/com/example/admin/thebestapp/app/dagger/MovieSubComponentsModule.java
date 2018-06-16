@@ -1,8 +1,8 @@
 package com.example.admin.thebestapp.app.dagger;
 
-import com.example.admin.thebestapp.ui.movie.MovieActivity;
 import com.example.admin.thebestapp.base.dagger.ActivityComponentBuilder;
 import com.example.admin.thebestapp.ui.movie.movieFragment.dagger.MovieComponent;
+import com.example.admin.thebestapp.ui.movie.movieFragment.mvp.MovieFragment;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,7 +14,7 @@ public class MovieSubComponentsModule
 {
     @Provides
     @IntoMap
-    @ClassKey(MovieActivity.class)
+    @ClassKey(MovieFragment.class)
     ActivityComponentBuilder provideSplashViewBuilder(MovieComponent.Builder builder) {
         return builder;
     }

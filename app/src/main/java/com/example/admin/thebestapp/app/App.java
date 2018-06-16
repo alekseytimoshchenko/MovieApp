@@ -5,8 +5,6 @@ import android.content.Context;
 
 public class App extends Application
 {
-
-
     private ComponentsHolder componentsHolder;
 
     public static App getApp(Context context) {
