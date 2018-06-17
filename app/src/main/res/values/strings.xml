@@ -3,4 +3,10 @@
     <string name="splash">splash</string>
     <string name="pop_movies">Pop movies</string>
     <string name="movie_details">Movie details</string>
+    <string name="title">title</string>
+    <string name="some_text_here">some text here</string>
+    <string name="first_text_desc">Official trailer\nTrailer</string>
+    <string name="second_text_desc">"Find" Spot\nTeaser</string>
+    <string name="third_text_desc">"Command" Spot\nTeaser</string>
+    <string name="button">button</string>
 </resources>

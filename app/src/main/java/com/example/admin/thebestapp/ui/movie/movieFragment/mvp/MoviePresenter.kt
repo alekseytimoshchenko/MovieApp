@@ -2,9 +2,15 @@ package com.example.admin.thebestapp.ui.movie.movieFragment.mvp
 
 import com.example.admin.thebestapp.base.mvp.PresenterBase
 import com.example.admin.thebestapp.ui.movie.movieFragment.adapter.PageManager
+import com.example.admin.thebestapp.ui.movie.movieFragment.network.MovieObject
 
 class MoviePresenter (private val model: MovieModel): PresenterBase<MovieContract.View>(), MovieContract.Presenter
 {
+    override fun setMovie(iItem: MovieObject)
+    {
+        view?.setMovie(iItem)
+    }
+    
     override fun viewIsReady()
     {
         view?.setRecyclerViewConfigurations()

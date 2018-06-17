@@ -7,14 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.movie.MovieActivity">
 
-    <fragment
-        android:id="@+id/frag_movie_frag"
-        class="com.example.admin.thebestapp.ui.movie.movieFragment.mvp.MovieFragment"
+    <FrameLayout
+        android:id="@+id/fl_activity_movie_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

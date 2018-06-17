@@ -1,5 +1,6 @@
 package com.example.admin.thebestapp.ui.movie.movieFragment.mvp
 
+import android.app.Activity
 import android.arch.paging.DataSource
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
@@ -22,10 +23,19 @@ import kotlinx.android.synthetic.main.frag_movie.*
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
+
+
 class MovieFragment: Fragment(), MovieContract.View
 {
     @Inject
     lateinit var presenter: MovieContract.Presenter
+    
+    interface OnMovieSelected
+    {
+        fun setMovie(iItem: MovieObject)
+    }
+    
+    private lateinit var movieSelectedListener: OnMovieSelected
     
     private lateinit var movieAdapter: MovieAdapter
     
@@ -34,6 +44,20 @@ class MovieFragment: Fragment(), MovieContract.View
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         return inflater.inflate(R.layout.frag_movie, container, false)
+    }
+    
+    override fun onAttach(activity: Activity?)
+    {
+        super.onAttach(activity)
+        
+        try
+        {
+            movieSelectedListener = activity as OnMovieSelected
+        }
+        catch(e: ClassCastException)
+        {
+            throw ClassCastException(activity!!.toString() + " must implement OnMovieSelected")
+        }
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
@@ -79,7 +103,7 @@ class MovieFragment: Fragment(), MovieContract.View
                             }
                         }).build()
         
-        movieAdapter = MovieAdapter(MyDiffUtil<MovieObject>(), itemClick)
+        movieAdapter = MovieAdapter(MyDiffUtil(), itemClick)
         
         pagedListLiveData.observe( //
                 this, //
@@ -104,8 +128,13 @@ class MovieFragment: Fragment(), MovieContract.View
     {
         override fun itemClick(iItem: MovieObject)
         {
-        
+            presenter.setMovie(iItem)
         }
+    }
+    
+    override fun setMovie(iItem: MovieObject)
+    {
+        movieSelectedListener.setMovie(iItem)
     }
     
     override fun onDestroy()
