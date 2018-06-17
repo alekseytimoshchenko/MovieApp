@@ -30,11 +30,12 @@ public class ComponentsHolder
 		this.context = context;
 	}
 	
-	void init()
+	ComponentsHolder init()
 	{
 		appComponent = DaggerAppComponent.builder().appModule(new AppModule(context)).build();
 		appComponent.injectComponentsHolder(this);
 		components = new HashMap<>();
+		return this;
 	}
 	
 	public AppComponent getAppComponent()

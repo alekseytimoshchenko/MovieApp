@@ -87,7 +87,7 @@ class MovieFragment: Fragment()
     override fun onAttach(context: Context?)
     {
         super.onAttach(context)
-        App.getApp(context).componentsHolder.getActivityComponent(MovieFragment::class.java, MovieModule()).inject(this)
+        App.instance.componentHolder.getActivityComponent(MovieFragment::class.java, MovieModule()).inject(this)
     }
     
     private fun initializeRecycler()

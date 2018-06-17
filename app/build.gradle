@@ -6,9 +6,6 @@ apply plugin: 'kotlin-android-extensions'
 def libs = rootProject.ext.libraries
 def test = rootProject.ext.testingLibraries
 def config = rootProject.ext.configuration
-def final circleBuild = System.getenv("CI") == "true"
-def final preDexEnabled = "true" == System.getProperty("pre-dex", "true") && !circleBuild
-def final dexInProcessEnabled = "true" == System.getProperty("dex-in-process", "true") && !circleBuild
 
 android {
     compileSdkVersion config.compileVersion
@@ -40,8 +37,6 @@ dependencies {
     implementation "com.android.support:support-v4:${libs.supportVersion}"
     implementation "com.android.support:recyclerview-v7:${libs.supportVersion}"
     implementation "com.android.support.constraint:constraint-layout:${libs.constraintLayout}"
-    implementation "com.google.android.gms:play-services-location:${libs.googlePlayServices}"
-    implementation "com.google.android.gms:play-services-maps:${libs.googlePlayServices}"
 
     //Test
     testImplementation "junit:junit:${test.junit}"
@@ -81,4 +76,13 @@ dependencies {
     //Lifecycle
     implementation "android.arch.lifecycle:extensions:${libs.lifecycle}"
     annotationProcessor "android.arch.lifecycle:compiler:${libs.lifecycle}"
+
+    //Log
+    implementation "com.jakewharton.timber:timber:${libs.timber}"
+    implementation "com.facebook.stetho:stetho:${libs.stetho}"
+    implementation "com.facebook.stetho:stetho-okhttp3:${libs.stetho}"
+
+    //Memory profiling
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:${libs.leakcanary}"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${libs.leakcanary}"
 }

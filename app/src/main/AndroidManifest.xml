@@ -2,6 +2,9 @@
 <manifest package="com.example.admin.thebestapp"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".app.App"
         android:allowBackup="true"
@@ -19,7 +22,6 @@
         </activity>
 
         <activity android:name=".ui.movie.MovieActivity"/>
-
     </application>
 
 </manifest>
