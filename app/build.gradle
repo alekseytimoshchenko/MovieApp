@@ -74,6 +74,7 @@ dependencies {
 
     // Glide
     implementation "com.github.bumptech.glide:glide:${libs.glideVersion}"
+    kapt "com.github.bumptech.glide:compiler:${libs.glideVersion}"
 
     // Paging
     implementation "android.arch.paging:runtime:${libs.paging}"

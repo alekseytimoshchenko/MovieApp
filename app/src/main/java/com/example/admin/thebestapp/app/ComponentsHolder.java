@@ -25,7 +25,7 @@ public class ComponentsHolder
 	private Map<Class<?>, ActivityComponent> components;
 	private AppComponent appComponent;
 	
-	public ComponentsHolder(Context context)
+	ComponentsHolder(Context context)
 	{
 		this.context = context;
 	}

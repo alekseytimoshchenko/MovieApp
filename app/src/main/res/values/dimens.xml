@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="very_small_space">4dp</dimen>
+    <dimen name="small_space">8dp</dimen>
+    <dimen name="medium_space">12dp</dimen>
+    <dimen name="large_space">16dp</dimen>
+    <dimen name="space_1dp">1dp</dimen>
+    <dimen name="space_2dp">2dp</dimen>
+    <dimen name="space_3dp">3dp</dimen>
+    <dimen name="space_4dp">4dp</dimen>
+    <dimen name="space_6dp">6dp</dimen>
+    <dimen name="very_large_space">20dp</dimen>
+    <dimen name="very_large_space18">18dp</dimen>
+    <dimen name="very_large_space24">24dp</dimen>
+    <dimen name="very_large_space30">30dp</dimen>
+    <dimen name="very_large_space32">32dp</dimen>
+    <dimen name="very_large_space34">34dp</dimen>
+    <dimen name="very_large_space40">40dp</dimen>
+    <dimen name="very_large_space50">50dp</dimen>
+    <dimen name="very_large_space70">70dp</dimen>
+    <dimen name="very_large_space80">70dp</dimen>
+    <dimen name="very_large_space100">100dp</dimen>
+    <dimen name="very_large_space130">130dp</dimen>
+    <dimen name="very_large_space160">160dp</dimen>
+
+    <!-- sizes -->
+    <dimen name="text_size_12sp">12sp</dimen>
+    <dimen name="text_size_14sp">14sp</dimen>
+    <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="text_size_18sp">18sp</dimen>
+    <dimen name="text_size_20sp">20sp</dimen>
+    <dimen name="text_size_22sp">22sp</dimen>
+    <dimen name="text_size_24sp">24sp</dimen>
+    <dimen name="text_size_34sp">34sp</dimen>
+    <dimen name="text_size_40sp">40sp</dimen>
+    <dimen name="text_size_44sp">44sp</dimen>
+    <dimen name="text_size_50sp">50sp</dimen>
+</resources>

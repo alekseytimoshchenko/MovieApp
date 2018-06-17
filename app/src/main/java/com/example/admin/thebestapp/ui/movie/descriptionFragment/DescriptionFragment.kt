@@ -11,8 +11,6 @@ class DescriptionFragment: Fragment()
 {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        var rootView = inflater.inflate(R.layout.frag_description, container, false)
-    
-        return rootView
+        return inflater.inflate(R.layout.frag_description, container, false)
     }
 }

@@ -1,7 +1,5 @@
 package com.example.admin.thebestapp.app.extensions
 
-import android.app.ProgressDialog
-import android.content.Context
 import android.text.TextUtils
 import android.util.Log
 import android.view.Window
@@ -109,42 +107,5 @@ fun AppUtils.isWindowTouchable(iWindow: Window, iIsTouchable: Boolean)
     else
     {
         iWindow.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-    }
-}
-
-class ProgressIndicator(private var context: Context)
-{
-    companion object
-    {
-        private var progressIndicator: ProgressDialog? = null
-        
-        fun  getProgressIndicator(context: Context): ProgressDialog {
-            if (progressIndicator == null)  // NOT thread safe!
-                progressIndicator = ProgressDialog(context).apply { setTitle("Loading") }
-        
-            return progressIndicator!!
-        }
-    }
-    
-    fun setProgressDialog(iShouldShow: Boolean, window: Window)
-    {
-        when(iShouldShow)
-        {
-            true ->
-            {
-                if(!getProgressIndicator(window.context).isShowing)
-                {
-                    getProgressIndicator(window.context).show()
-                }
-                
-                AppUtils.isWindowTouchable(window, false)
-            }
-            
-            false ->
-            {
-                getProgressIndicator(window.context).dismiss()
-                AppUtils.isWindowTouchable(window, true)
-            }
-        }
     }
 }

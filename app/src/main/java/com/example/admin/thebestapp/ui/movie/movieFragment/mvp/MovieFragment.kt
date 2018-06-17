@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.frag_movie.*
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
-
 class MovieFragment: Fragment(), MovieContract.View
 {
     @Inject
@@ -41,7 +40,7 @@ class MovieFragment: Fragment(), MovieContract.View
     {
         super.onViewCreated(view, savedInstanceState)
         isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-    
+        
         App.getApp(context).componentsHolder.getActivityComponent(MovieFragment::class.java, MovieModule()).inject(this)
         presenter.attachView(this)
         presenter.viewIsReady()
@@ -80,7 +79,7 @@ class MovieFragment: Fragment(), MovieContract.View
                             }
                         }).build()
         
-        movieAdapter = MovieAdapter(MyDiffUtil<MovieObject>())
+        movieAdapter = MovieAdapter(MyDiffUtil<MovieObject>(), itemClick)
         
         pagedListLiveData.observe( //
                 this, //
@@ -99,6 +98,14 @@ class MovieFragment: Fragment(), MovieContract.View
         }
         
         rv_frag_movie_movie_list.adapter = movieAdapter
+    }
+    
+    private val itemClick = object: MovieAdapter.OnItemClick
+    {
+        override fun itemClick(iItem: MovieObject)
+        {
+        
+        }
     }
     
     override fun onDestroy()
