@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.movie.MovieActivity">
+    tools:context=".ui.MovieActivity">
 
     <fragment
         android:id="@+id/frag_movie_frag"
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/frag_description_frag"
-        class="com.example.admin.thebestapp.ui.movie.descriptionFragment.DescriptionFragment"
+        class="com.example.admin.thebestapp.ui.descriptionFragment.DescriptionFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
