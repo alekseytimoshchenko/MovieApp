@@ -28,6 +28,7 @@ ext {
             googlePlayServices              : "15.0.1",
             retrofit2converterJacksonVersion: "2.4.0",
             glideVersion                    : "4.7.1",
+            lifecycle                       : "1.1.1",
             paging                          : "1.0.0",
             ankoVersion                     : "0.10.3"
     ]
@@ -42,7 +43,7 @@ ext {
 }
 
 buildscript {
-    ext.kotlin_version = '1.2.41'
+    ext.kotlin_version = '1.2.50'
     repositories {
         google()
         jcenter()

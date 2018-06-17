@@ -31,7 +31,6 @@ android {
 }
 
 dependencies {
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //android
@@ -78,4 +77,8 @@ dependencies {
 
     // Paging
     implementation "android.arch.paging:runtime:${libs.paging}"
+
+    //Lifecycle
+    implementation "android.arch.lifecycle:extensions:${libs.lifecycle}"
+    annotationProcessor "android.arch.lifecycle:compiler:${libs.lifecycle}"
 }

@@ -1,14 +1,14 @@
 package com.example.admin.thebestapp.ui.movie.movieFragment.adapter
 
 import android.arch.paging.PageKeyedDataSource
-import com.example.admin.thebestapp.ui.movie.movieFragment.mvp.MovieContract
+import com.example.admin.thebestapp.ui.movie.movieFragment.mvp.MovieRepository
 import com.example.admin.thebestapp.ui.movie.movieFragment.network.MovieObject
 
-class MyPageKeyedDataSource(private val movieStorage: MovieContract.Presenter): PageKeyedDataSource<Int, MovieObject>()
+class MyPageKeyedDataSource(private val movieRepository: MovieRepository): PageKeyedDataSource<Int, MovieObject>()
 {
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, MovieObject>)
     {
-        val result: PageManager = movieStorage.getData(1)
+        val result: PageManager = movieRepository.getData(1)
         
         if(params.placeholdersEnabled)
         {
@@ -22,13 +22,13 @@ class MyPageKeyedDataSource(private val movieStorage: MovieContract.Presenter): 
     
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, MovieObject>)
     {
-        val result = movieStorage.getData(params.key + 1)
+        val result = movieRepository.getData(params.key + 1)
         callback.onResult(result.data, result.nextPage)
     }
     
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, MovieObject>)
     {
-        val result = movieStorage.getData(params.key - 1)
+        val result = movieRepository.getData(params.key - 1)
         callback.onResult(result.data, result.nextPage)
     }
 }

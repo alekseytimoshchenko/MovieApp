@@ -7,7 +7,7 @@ import com.example.admin.thebestapp.R
 import com.example.admin.thebestapp.app.GlideApp
 import com.example.admin.thebestapp.ui.movie.movieFragment.network.MovieObject
 
-class MovieHolder(itemView: View, private val clickListener: MovieAdapter.OnItemClick): RecyclerView.ViewHolder(itemView)
+class MovieHolder(itemView: View, private val clickListener: (MovieObject) -> Unit): RecyclerView.ViewHolder(itemView)
 {
     private val imageView: ImageView = itemView.findViewById(R.id.iv_movie_item_poster)
     
@@ -20,7 +20,7 @@ class MovieHolder(itemView: View, private val clickListener: MovieAdapter.OnItem
                     .placeholder(R.mipmap.ic_launcher) //
                     .into(imageView)
             
-            imageView.setOnClickListener { clickListener.itemClick(iItem) }
+            imageView.setOnClickListener { clickListener(iItem) }
         }
         else
         {

@@ -7,18 +7,15 @@ import android.view.ViewGroup
 import com.example.admin.thebestapp.R
 import com.example.admin.thebestapp.ui.movie.movieFragment.network.MovieObject
 
-class MovieAdapter(diffUtilCallback: DiffUtil.ItemCallback<MovieObject>, private val clickListener: OnItemClick)//
+class MovieAdapter(diffUtilCallback: DiffUtil.ItemCallback<MovieObject>)//
     : PagedListAdapter<MovieObject, MovieHolder>(diffUtilCallback)
 {
-    interface OnItemClick
-    {
-        fun itemClick(iItem: MovieObject)
-    }
+    var onItemClick: (MovieObject) -> Unit = {}
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder
     {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
-        return MovieHolder(view, clickListener)
+        return MovieHolder(view, onItemClick)
     }
     
     override fun onBindViewHolder(holder: MovieHolder, position: Int)
