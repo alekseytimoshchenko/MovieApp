@@ -7,4 +7,8 @@ object Constants
     const val MOVIE_OBJ = "movie_obj"
     
     const val TIMEOUT_IN_MS = 30000.toLong()
+    
+    const val DB_NAME = "movie_db"
+    
+    const val DATABASE_PAGE_SIZE = 15
 }

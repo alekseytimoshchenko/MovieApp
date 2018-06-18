@@ -2,6 +2,7 @@ package com.example.admin.thebestapp.di.moduls
 
 import android.arch.lifecycle.ViewModelProvider
 import com.example.admin.thebestapp.data.local.LocalStorage
+import com.example.admin.thebestapp.data.local.MovieDao
 import com.example.admin.thebestapp.data.remote.RemoteStorage
 import com.example.admin.thebestapp.data.repo.MovieRepository
 import com.example.admin.thebestapp.di.scopesqualifiers.MovieScope
@@ -21,8 +22,8 @@ class MovieModule: ActivityModule
     
     @MovieScope
     @Provides
-    internal fun getModel(localStorage: LocalStorage, remoteStorage: RemoteStorage): MovieRepository //
-            = MovieRepository(localStorage, remoteStorage)
+    internal fun getModel(localStorage: LocalStorage, remoteStorage: RemoteStorage, movieDao: MovieDao): MovieRepository //
+            = MovieRepository(localStorage, remoteStorage, movieDao)
     
     @MovieScope
     @Provides

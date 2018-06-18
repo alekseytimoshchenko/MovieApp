@@ -1,17 +1,18 @@
 package com.example.admin.thebestapp.ui.movieFragment.adapter
 
 import android.support.v7.util.DiffUtil
+import com.example.admin.thebestapp.data.remote.model.MovieObject
 
-class RepoComparator<T: DiffInterface>: DiffUtil.ItemCallback<T>()
+class RepoComparator: DiffUtil.ItemCallback<MovieObject>()
 {
-    override fun areItemsTheSame(oldItem: T, newItem: T): Boolean
+    override fun areItemsTheSame(oldItem: MovieObject, newItem: MovieObject): Boolean
     {
-        return oldItem.getId() == newItem.getId()
+        return oldItem.id == newItem.id
     }
     
-    override fun areContentsTheSame(oldItem: T, newItem: T): Boolean
+    override fun areContentsTheSame(oldItem: MovieObject, newItem: MovieObject): Boolean
     {
-        return (oldItem.getName().equals(newItem.getName(), ignoreCase = true) //
-                && oldItem.getOverview().equals(newItem.getOverview(), ignoreCase = true))
+        return (oldItem.title.equals(newItem.title, ignoreCase = true) //
+                && oldItem.overview_content.equals(newItem.overview_content, ignoreCase = true))
     }
 }

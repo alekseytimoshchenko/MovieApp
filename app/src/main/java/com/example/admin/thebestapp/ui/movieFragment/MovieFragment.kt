@@ -1,8 +1,10 @@
 package com.example.admin.thebestapp.ui.movieFragment
 
 import android.app.Activity
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.arch.paging.PagedList
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
@@ -16,9 +18,12 @@ import com.example.admin.thebestapp.App
 import com.example.admin.thebestapp.R
 import com.example.admin.thebestapp.data.remote.model.MovieObject
 import com.example.admin.thebestapp.di.moduls.MovieModule
+import com.example.admin.thebestapp.di.utils.LoadingStatus
 import com.example.admin.thebestapp.ui.movieFragment.adapter.MovieAdapter
 import com.example.admin.thebestapp.ui.movieFragment.adapter.RepoComparator
 import kotlinx.android.synthetic.main.frag_movie.*
+import org.jetbrains.anko.support.v4.toast
+import timber.log.Timber
 import javax.inject.Inject
 
 class MovieFragment: Fragment()
@@ -50,18 +55,46 @@ class MovieFragment: Fragment()
         super.onActivityCreated(savedInstanceState)
         
         viewModel = ViewModelProviders.of(this, factory).get(MovieViewModel::class.java)
-        setToViewModel()
+        subscribeToViewModel()
         initializeRecycler()
+        viewModel.loadMovies(viewModel.lastQueryValue() ?: "")
     }
     
-    private fun setToViewModel()
+    private fun subscribeToViewModel()
     {
-        viewModel.getPagedListLiveData()?.observe( //
-                this, //
-                android.arch.lifecycle.Observer {
-                    movieAdapter.submitList(it)
-                } //
-        )
+        viewModel.crypocurrencies.observe(this, Observer<PagedList<MovieObject>> {
+            Timber.d("viewModel.cryptoData.observe - list: ${it?.size}")
+            showEmptyState(it?.size == 0)
+            movieAdapter.submitList(it)
+        })
+    
+        viewModel.networkErrors.observe(this, Observer<String> {
+            toast("\uD83D\uDE28 Wooops $it")
+        })
+    
+        viewModel.loadingStatus.observe(this, Observer { result ->
+            Timber.d("loadingStatus.observe changed - $result")
+            when(result)
+            {
+                LoadingStatus.SUCCESS, LoadingStatus.ERROR -> pb_frag_movie_loading.visibility = View.GONE
+                LoadingStatus.LOADING -> pb_frag_movie_loading.visibility = View.VISIBLE
+                null -> pb_frag_movie_loading.visibility = View.GONE
+            }
+        })
+    }
+    
+    private fun showEmptyState(isShowEmptyState: Boolean)
+    {
+        if(isShowEmptyState)
+        {
+            rv_frag_movie_movie_list.visibility = View.GONE
+            tvEmptyState.visibility = View.VISIBLE
+        }
+        else
+        {
+            rv_frag_movie_movie_list.visibility = View.VISIBLE
+            tvEmptyState.visibility = View.GONE
+        }
     }
     
     override fun onAttach(activity: Activity?)
@@ -94,7 +127,7 @@ class MovieFragment: Fragment()
     {
         val decoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
         rv_frag_movie_movie_list.addItemDecoration(decoration)
-    
+        
         if(isPortrait)
         {
             rv_frag_movie_movie_list.layoutManager = GridLayoutManager(context, 2)
@@ -103,7 +136,7 @@ class MovieFragment: Fragment()
         {
             rv_frag_movie_movie_list.layoutManager = GridLayoutManager(context, 3)
         }
-
+        
         rv_frag_movie_movie_list.adapter = movieAdapter
         
         movieAdapter.onItemClick = { movieObj ->

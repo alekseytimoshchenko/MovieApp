@@ -95,5 +95,6 @@ dependencies {
 
     //Room
     implementation "android.arch.persistence.room:runtime:${libs.room}"
-    annotationProcessor "android.arch.persistence.room:compiler:${libs.room}"
+    implementation "android.arch.persistence.room:rxjava2:${libs.room}"
+    kapt "android.arch.persistence.room:compiler:${libs.room}"
 }
