@@ -12,7 +12,11 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class RepoBoundaryCallback(private val apiInterface: IMovieEndpoint, private val cache: MovieDao): PagedList.BoundaryCallback<MovieObject>()
+class RepoBoundaryCallback(//
+        private val apiInterface: IMovieEndpoint, //
+        private val cache: MovieDao,
+        private val mapper: MovieModelMapper
+): PagedList.BoundaryCallback<MovieObject>()
 {
     // keep the last requested page.
     // When the request is successful, increment the page number.
@@ -55,7 +59,7 @@ class RepoBoundaryCallback(private val apiInterface: IMovieEndpoint, private val
     
         apiInterface.getMovie(API_KEY, page = lastRequestedPage) //
                 .subscribeOn(Schedulers.io()) //
-                .map { it.results } //
+                .map { mapper.toDbFormatFromApi(it) } //
                 .subscribe( //
                         object: DisposableObserver<List<MovieObject>>()
                         {

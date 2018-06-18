@@ -11,7 +11,8 @@ import com.example.admin.thebestapp.data.remote.model.MovieObject
 @Dao
 interface MovieDao
 {
-    @Query("SELECT * FROM movieobject WHERE (title LIKE :queryString) OR (id LIKE :queryString) ORDER BY vote_average")
+//    @Query("SELECT * FROM movieobject WHERE (title LIKE :queryString) OR (id LIKE :queryString) ORDER BY vote_average")
+    @Query("SELECT * FROM movieobject WHERE (id LIKE :queryString)")
     fun queryMovieObjByTitle(queryString: String): DataSource.Factory<Int, MovieObject>
     
     @Query("SELECT * FROM movieobject WHERE id = :id ")

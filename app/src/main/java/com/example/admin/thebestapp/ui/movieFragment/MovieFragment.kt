@@ -20,7 +20,6 @@ import com.example.admin.thebestapp.data.remote.model.MovieObject
 import com.example.admin.thebestapp.di.moduls.MovieModule
 import com.example.admin.thebestapp.di.utils.LoadingStatus
 import com.example.admin.thebestapp.ui.movieFragment.adapter.MovieAdapter
-import com.example.admin.thebestapp.ui.movieFragment.adapter.RepoComparator
 import kotlinx.android.synthetic.main.frag_movie.*
 import org.jetbrains.anko.support.v4.toast
 import timber.log.Timber
@@ -46,7 +45,7 @@ class MovieFragment: Fragment()
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        movieAdapter = MovieAdapter(RepoComparator())
+        movieAdapter = MovieAdapter()
         return inflater.inflate(R.layout.frag_movie, container, false)
     }
     
@@ -62,8 +61,8 @@ class MovieFragment: Fragment()
     
     private fun subscribeToViewModel()
     {
-        viewModel.crypocurrencies.observe(this, Observer<PagedList<MovieObject>> {
-            Timber.d("viewModel.cryptoData.observe - list: ${it?.size}")
+        viewModel.movies.observe(this, Observer<PagedList<MovieObject>> {
+            Timber.d("viewModel- list: ${it?.size}")
             showEmptyState(it?.size == 0)
             movieAdapter.submitList(it)
         })

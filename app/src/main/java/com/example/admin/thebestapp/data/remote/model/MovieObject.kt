@@ -11,9 +11,9 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "movieobject")
 data class MovieObject( //
-        @SerializedName("key_id") @PrimaryKey @Expose @ColumnInfo(name = "id") var id: Int, //
+        @SerializedName("id") @PrimaryKey(autoGenerate = true) @Expose @ColumnInfo(name = "id") var id: Long? = null, //
         @SerializedName("vote_count") @Expose @ColumnInfo(name = "vote_count") var vote_count: Int = 0, //
-        @SerializedName("id") @Expose @ColumnInfo(name = "movie_id") var movie_id: Long = 0, //
+        @SerializedName("movie_id") @Expose @ColumnInfo(name = "movie_id") var movie_id: Long = 0, //
         @SerializedName("vote_average") @Expose @ColumnInfo(name = "vote_average") var vote_average: Double = 0.toDouble(), //
         @SerializedName("title") @Expose @ColumnInfo(name = "title") var title: String = "", //
         @SerializedName("poster_path") @Expose @ColumnInfo(name = "poster_path") var poster_path: String = "", //
@@ -21,7 +21,7 @@ data class MovieObject( //
         @SerializedName("release_date") @Expose @ColumnInfo(name = "release_date") var release_date: String = ""): Parcelable
 {
     @Ignore constructor(parcel: Parcel): this( //
-            parcel.readInt(), //
+            parcel.readLong(), //
             parcel.readInt(), //
             parcel.readLong(), //
             parcel.readDouble(), //
@@ -34,7 +34,7 @@ data class MovieObject( //
     @Ignore
     override fun writeToParcel(parcel: Parcel, flags: Int)
     {
-        parcel.writeInt(id)
+        parcel.writeLong(if(id == null) 0.toLong() else id!!)
         parcel.writeInt(vote_count)
         parcel.writeLong(movie_id)
         parcel.writeDouble(vote_average)

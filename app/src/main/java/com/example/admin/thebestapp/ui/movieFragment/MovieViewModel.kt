@@ -18,7 +18,7 @@ class MovieViewModel(private val movieRepository: MovieRepository): ViewModel()
         movieRepository.getData(it)
     }
     
-    val crypocurrencies: LiveData<PagedList<MovieObject>> =
+    val movies: LiveData<PagedList<MovieObject>> =
             Transformations.switchMap(movieQueryResults) { it -> it.data }
     
     val networkErrors: LiveData<String> = Transformations.switchMap(

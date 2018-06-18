@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import com.example.admin.thebestapp.R
 import com.example.admin.thebestapp.data.remote.model.MovieObject
 
-class MovieAdapter(diffUtilCallback: DiffUtil.ItemCallback<MovieObject>)//
-    : PagedListAdapter<MovieObject, MovieHolder>(diffUtilCallback)
+class MovieAdapter: PagedListAdapter<MovieObject, MovieHolder>(REPO_COMPARATOR)
 {
     var onItemClick: (MovieObject) -> Unit = {}
     
@@ -21,5 +20,15 @@ class MovieAdapter(diffUtilCallback: DiffUtil.ItemCallback<MovieObject>)//
     override fun onBindViewHolder(holder: MovieHolder, position: Int)
     {
         holder.bind(getItem(position))
+    }
+    
+    companion object
+    {
+        private val REPO_COMPARATOR = object: DiffUtil.ItemCallback<MovieObject>()
+        {
+            override fun areItemsTheSame(oldItem: MovieObject, newItem: MovieObject): Boolean = oldItem.id == newItem.id
+            
+            override fun areContentsTheSame(oldItem: MovieObject, newItem: MovieObject): Boolean = oldItem == newItem
+        }
     }
 }

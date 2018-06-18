@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 
-class Utils(private val context: Context)
+class Utils (private val context: Context)
 {
     fun isConnectedToInternet(): Boolean
     {
