@@ -6,8 +6,5 @@ import com.example.admin.thebestapp.data.repo.MovieRepository
 
 class MovieModelFactory(private val mMovieRepository: MovieRepository): ViewModelProvider.NewInstanceFactory()
 {
-    override fun <T: ViewModel> create(modelClass: Class<T>): T
-    {
-        return MovieViewModel(mMovieRepository) as T
-    }
+    override fun <T: ViewModel> create(modelClass: Class<T>): T = MovieViewModel(mMovieRepository) as T
 }

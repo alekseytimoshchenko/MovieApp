@@ -18,14 +18,11 @@ class MovieViewModel(private val movieRepository: MovieRepository): ViewModel()
         movieRepository.getData(it)
     }
     
-    val movies: LiveData<PagedList<MovieObject>> =
-            Transformations.switchMap(movieQueryResults) { it -> it.data }
+    val movies: LiveData<PagedList<MovieObject>> = Transformations.switchMap(movieQueryResults) { it -> it.data }
     
-    val networkErrors: LiveData<String> = Transformations.switchMap(
-            movieQueryResults) { it -> it.networkErrors }
+    val networkErrors: LiveData<String> = Transformations.switchMap(movieQueryResults) { it -> it.networkErrors }
     
-    val loadingStatus: LiveData<LoadingStatus> = Transformations.switchMap(
-            movieQueryResults) { it -> it.loadingStatus }
+    val loadingStatus: LiveData<LoadingStatus> = Transformations.switchMap(movieQueryResults) { it -> it.loadingStatus }
     
     fun loadMovies(query: String)
     {

@@ -1,16 +1,15 @@
 package com.example.admin.thebestapp.data.repo
 
 import android.arch.paging.LivePagedListBuilder
-import com.example.admin.thebestapp.data.local.LocalStorage
 import com.example.admin.thebestapp.data.local.MovieDao
-import com.example.admin.thebestapp.data.remote.RemoteStorage
+import com.example.admin.thebestapp.data.remote.IMovieEndpoint
 import com.example.admin.thebestapp.utils.Constants.DATABASE_PAGE_SIZE
 import timber.log.Timber
 
-class MovieRepository constructor(private val localStorage: LocalStorage, //
-                                  private val remoteStorage: RemoteStorage, //
-                                  private val movieDao: MovieDao, //
-                                  private val mapper: MovieModelMapper)
+class MovieRepository constructor(
+        private val apiInterface: IMovieEndpoint, //
+        private val movieDao: MovieDao, //
+        private val mapper: MovieModelMapper)
 {
     fun getData(query: String): MovieListQueryResult
     {
@@ -19,7 +18,7 @@ class MovieRepository constructor(private val localStorage: LocalStorage, //
         val dataSourceFactory = movieDao.queryMovieObjByTitle(query.toQueryPattern())
         
         // Construct the boundary callback
-        val boundaryCallback = RepoBoundaryCallback(remoteStorage.mMovieEndpoint, movieDao, mapper)
+        val boundaryCallback = RepoBoundaryCallback(apiInterface, movieDao, mapper)
         val networkErrors = boundaryCallback.networkErrors
         val loadingStatus = boundaryCallback.loadingStatus
         

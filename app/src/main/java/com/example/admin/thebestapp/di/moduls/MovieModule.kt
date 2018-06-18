@@ -1,10 +1,8 @@
 package com.example.admin.thebestapp.di.moduls
 
 import android.arch.lifecycle.ViewModelProvider
-import android.content.Context
-import com.example.admin.thebestapp.data.local.LocalStorage
 import com.example.admin.thebestapp.data.local.MovieDao
-import com.example.admin.thebestapp.data.remote.RemoteStorage
+import com.example.admin.thebestapp.data.remote.IMovieEndpoint
 import com.example.admin.thebestapp.data.repo.MovieModelMapper
 import com.example.admin.thebestapp.data.repo.MovieRepository
 import com.example.admin.thebestapp.di.scopesqualifiers.MovieScope
@@ -25,12 +23,8 @@ class MovieModule: ActivityModule
     
     @MovieScope
     @Provides
-    internal fun getModel(localStorage: LocalStorage, remoteStorage: RemoteStorage, movieDao: MovieDao, mapper: MovieModelMapper): MovieRepository //
-            = MovieRepository(localStorage, remoteStorage, movieDao, mapper)
-    
-    @MovieScope
-    @Provides
-    internal fun getLocalSotrage(): LocalStorage = LocalStorage()
+    internal fun getModel(apiInterface: IMovieEndpoint, movieDao: MovieDao, mapper: MovieModelMapper): MovieRepository //
+            = MovieRepository(apiInterface, movieDao, mapper)
     
     @MovieScope
     @Provides
@@ -38,6 +32,6 @@ class MovieModule: ActivityModule
     
     @MovieScope
     @Provides
-    internal fun getRemoteSotrage(retrofitModules: Map<eRetrofitModules, @JvmSuppressWildcards Provider<Retrofit>>): RemoteStorage //
-            = RemoteStorage(retrofitModules)
+    internal fun getMovieEndpoint(retrofitModules: Map<eRetrofitModules, @JvmSuppressWildcards Provider<Retrofit>>): IMovieEndpoint //
+            = retrofitModules[eRetrofitModules.MOVIE]!!.get().create(IMovieEndpoint::class.java)
 }

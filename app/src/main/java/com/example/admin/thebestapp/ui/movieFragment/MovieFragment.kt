@@ -61,16 +61,20 @@ class MovieFragment: Fragment()
     
     private fun subscribeToViewModel()
     {
-        viewModel.movies.observe(this, Observer<PagedList<MovieObject>> {
-            Timber.d("viewModel- list: ${it?.size}")
-            showEmptyState(it?.size == 0)
-            movieAdapter.submitList(it)
-        })
-    
+        viewModel.movies //
+                .observe( //
+                        this, //
+                        Observer<PagedList<MovieObject>> {
+                            Timber.d("viewModel- list: ${it?.size}")
+                            showEmptyState(it?.size == 0)
+                            movieAdapter.submitList(it)
+                        } //
+                )
+        
         viewModel.networkErrors.observe(this, Observer<String> {
             toast("\uD83D\uDE28 Wooops $it")
         })
-    
+        
         viewModel.loadingStatus.observe(this, Observer { result ->
             Timber.d("loadingStatus.observe changed - $result")
             when(result)
