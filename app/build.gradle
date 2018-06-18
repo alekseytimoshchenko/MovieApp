@@ -92,4 +92,8 @@ dependencies {
     //Memory profiling
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${libs.leakcanary}"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${libs.leakcanary}"
+
+    //Room
+    implementation "android.arch.persistence.room:runtime:${libs.room}"
+    annotationProcessor "android.arch.persistence.room:compiler:${libs.room}"
 }

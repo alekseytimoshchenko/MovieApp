@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/frag_movie_frag"
-        class="com.example.admin.thebestapp.ui.movie.movieFragment.mvp.MovieFragment"
+        class="com.example.admin.thebestapp.ui.movieFragment.MovieFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"

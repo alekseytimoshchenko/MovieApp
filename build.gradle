@@ -16,6 +16,7 @@ ext {
     libraries = [
             supportVersion                  : "28.0.0-alpha3",
             glideOkhttp3Version             : "1.4.0@aar",
+            room                            : "1.1.0",
             loggingInterceptorVersion       : "3.10.0",
             daggerVersion                   : "2.10",
             constraintLayout                : "1.1.2",

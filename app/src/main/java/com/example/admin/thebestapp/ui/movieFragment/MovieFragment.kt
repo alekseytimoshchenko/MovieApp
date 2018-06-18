@@ -12,12 +12,13 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.admin.thebestapp.R
 import com.example.admin.thebestapp.App
+import com.example.admin.thebestapp.R
+import com.example.admin.thebestapp.data.remote.model.MovieObject
+import com.example.admin.thebestapp.di.moduls.MovieModule
 import com.example.admin.thebestapp.ui.movieFragment.adapter.MovieAdapter
 import com.example.admin.thebestapp.ui.movieFragment.adapter.RepoComparator
-import com.example.admin.thebestapp.di.moduls.MovieModule
-import com.example.admin.thebestapp.data.remote.model.MovieObject
+import kotlinx.android.synthetic.main.frag_movie.*
 import javax.inject.Inject
 
 class MovieFragment: Fragment()
