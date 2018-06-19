@@ -29,6 +29,7 @@ object DataBindingAdapter
         }
         else
         {
+            //I am using picasso hire because Glide does not resize image properly
             Picasso.get()
                     .load(Uri.parse(imageUri))
                     .placeholder(R.mipmap.ic_launcher)
@@ -39,7 +40,8 @@ object DataBindingAdapter
     @BindingAdapter("android:src")
     fun setImageUri(view: ImageView, imageUri: Uri)
     {
-        GlideApp.with(view).load(imageUri).placeholder(R.mipmap.ic_launcher).into(view)
+        GlideApp.with(view).load(imageUri)
+                .placeholder(R.mipmap.ic_launcher).into(view)
     }
     
     @BindingAdapter("android:src")

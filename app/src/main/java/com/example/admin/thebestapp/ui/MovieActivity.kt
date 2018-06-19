@@ -4,10 +4,9 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.admin.thebestapp.R
-import com.example.admin.thebestapp.utils.Constants
+import com.example.admin.thebestapp.data.remote.model.MovieObject
 import com.example.admin.thebestapp.ui.descriptionFragment.DescriptionFragment
 import com.example.admin.thebestapp.ui.movieFragment.MovieFragment
-import com.example.admin.thebestapp.data.remote.model.MovieObject
 
 class MovieActivity: AppCompatActivity(), MovieFragment.OnMovieSelected
 {
@@ -32,34 +31,72 @@ class MovieActivity: AppCompatActivity(), MovieFragment.OnMovieSelected
     
     private fun setRootFragment()
     {
-        if(isPortrait)
+        if(!isPortrait && supportFragmentManager.backStackEntryCount > 0)
         {
-            val newFragment = MovieFragment()
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fl_activity_movie_container, newFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            supportFragmentManager.popBackStack()
+            supportFragmentManager.executePendingTransactions()
+        }
+        
+        if(supportFragmentManager.findFragmentByTag(MovieFragment.frag_tag) == null)
+        {
+            supportFragmentManager.beginTransaction().replace( //
+                    R.id.fl_activity_movie_container, //
+                    MovieFragment.newInstance(), //
+                    MovieFragment.frag_tag) //
+                    .commit()
+        }
+        
+        if(!isPortrait && supportFragmentManager.findFragmentByTag(DescriptionFragment.frag_tag) == null)
+        {
+            supportFragmentManager.beginTransaction().replace( //
+                    R.id.fl_activity_description_container, //
+                    //                    DescriptionFragment.newInstance(), //
+                    DescriptionFragment(), //
+                    DescriptionFragment.frag_tag) //
+                    .commit()
         }
     }
     
     override fun setMovie(iItem: MovieObject)
     {
-        val articleFrag = supportFragmentManager.findFragmentById(R.id.frag_description_frag) as DescriptionFragment?
+        val articleFrag = supportFragmentManager.findFragmentByTag(DescriptionFragment.frag_tag) as DescriptionFragment?
+        
+        if(isPortrait && articleFrag != null)
+        {
+            supportFragmentManager.beginTransaction().remove(articleFrag).commit()
+            supportFragmentManager.executePendingTransactions()
+        }
         
         if(articleFrag != null)
         {
-            articleFrag.setMovie(iItem)
+            if(isPortrait)
+            {
+                val frag = DescriptionFragment()
+                
+                supportFragmentManager.beginTransaction().replace( //
+                        R.id.fl_activity_movie_container, //
+                        frag, //
+                        DescriptionFragment.frag_tag) //
+                        .addToBackStack(DescriptionFragment.frag_tag) //
+                        .commit()
+                
+                supportFragmentManager.executePendingTransactions()
+                
+                frag.setMovie(iItem)
+            }
+            else
+            {
+                articleFrag.setMovie(iItem)
+            }
         }
         else
         {
-            val newFragment = DescriptionFragment()
-            val args = Bundle()
-            args.putParcelable(Constants.MOVIE_OBJ, iItem)
-            newFragment.arguments = args
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fl_activity_movie_container, newFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            supportFragmentManager.beginTransaction().replace( //
+                    R.id.fl_activity_movie_container, //
+                    DescriptionFragment.newInstance(iItem), //
+                    DescriptionFragment.frag_tag) //
+                    .addToBackStack(DescriptionFragment.frag_tag) //
+                    .commit()
         }
     }
 }

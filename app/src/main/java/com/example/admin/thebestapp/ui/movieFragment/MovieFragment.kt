@@ -27,6 +27,15 @@ import javax.inject.Inject
 
 class MovieFragment: Fragment()
 {
+    companion object
+    {
+        var frag_tag: String = ""
+            private set
+            get() = MovieFragment::class.java.simpleName.toString()
+    
+        fun newInstance() = MovieFragment()
+    }
+    
     @Inject
     lateinit var factory: ViewModelProvider.NewInstanceFactory
     
@@ -37,7 +46,7 @@ class MovieFragment: Fragment()
         fun setMovie(iItem: MovieObject)
     }
     
-    private lateinit var movieSelectedListener: OnMovieSelected
+    private var movieSelectedListener: OnMovieSelected? = null
     
     private lateinit var movieAdapter: MovieAdapter
     
@@ -147,8 +156,14 @@ class MovieFragment: Fragment()
         }
     }
     
+    override fun onDetach()
+    {
+        super.onDetach()
+        movieSelectedListener = null
+    }
+    
     private fun setMovie(iItem: MovieObject)
     {
-        movieSelectedListener.setMovie(iItem)
+        movieSelectedListener?.setMovie(iItem)
     }
 }
