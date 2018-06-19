@@ -57,6 +57,7 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:${libs.daggerVersion}"
 
     //Kotlin reflection
+
     implementation "org.jetbrains.kotlinx:kotlinx.reflect.lite:${libs.kotlinReflection}"
 
     //Anko
@@ -97,4 +98,7 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:${libs.room}"
     implementation "android.arch.persistence.room:rxjava2:${libs.room}"
     kapt "android.arch.persistence.room:compiler:${libs.room}"
+
+    //picasso
+    implementation "com.squareup.picasso:picasso:${libs.picasso}"
 }

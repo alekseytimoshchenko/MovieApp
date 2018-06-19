@@ -15,7 +15,7 @@ class MovieHolder(itemView: View, private val clickListener: (MovieObject) -> Un
     {
         if(iItem != null)
         {
-            DataBindingAdapter.setImageUri(imageView, "https://image.tmdb.org/t/p/w500/${iItem.poster_path}")
+            DataBindingAdapter.setImageUri(imageView, "https://image.tmdb.org/t/p/h632/${iItem.poster_path}")
             imageView.setOnClickListener { clickListener(iItem) }
         }
         else

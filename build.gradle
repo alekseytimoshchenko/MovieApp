@@ -22,6 +22,7 @@ ext {
             constraintLayout                : "1.1.2",
             kotlinReflection                : "1.0.0",
             rx2javaVersion                  : "2.1.14",
+            picasso                         : "2.71828",
             rxandroidVersion                : "2.0.2",
             rxKotlinVersion                 : "2.2.0",
             retrofit2Version                : "2.4.0",
