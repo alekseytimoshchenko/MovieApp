@@ -19,17 +19,12 @@ class MovieResponseDeserializer<T>: JsonDeserializer<MovieResponse>
         Observable.just(json.toString()) //
                 .subscribeOn(Schedulers.computation()) //
                 .observeOn(AndroidSchedulers.mainThread()) //
-                .map( //
-                        { elements ->
-                            Gson().fromJson(elements, MovieResponse::class.java) //
-                        } //
-                ) //
-                .blockingSubscribe( //
-                        { //
-                            response ->
-                            runActionResponse = response //
-                        } //
-                ) //
+                .map {
+                    Gson().fromJson(it, MovieResponse::class.java)
+                } //
+                .blockingSubscribe { //
+                    runActionResponse = it //
+                } //
         
         return runActionResponse
     }

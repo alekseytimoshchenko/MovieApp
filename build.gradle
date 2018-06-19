@@ -2,7 +2,7 @@
 
 ext {
     configuration = [
-            buildToolsVersion: "27.0.2",
+            buildToolsVersion: "27.0.3",
             compileVersion   : 28,
             applicationId    : "com.example.admin.thebestapp",
             minSdk           : 21,
