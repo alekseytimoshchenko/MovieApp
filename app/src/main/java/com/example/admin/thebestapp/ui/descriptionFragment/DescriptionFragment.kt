@@ -19,11 +19,11 @@ class DescriptionFragment: Fragment()
             private set
             get() = DescriptionFragment::class.java.simpleName.toString()
         
-        fun newInstance(iItem: MovieObject): DescriptionFragment //
+        fun newInstance(iItem: MovieObject?): DescriptionFragment //
                 = DescriptionFragment() //
                 .apply {
                     val args = Bundle()
-                    args.putParcelable(Constants.MOVIE_OBJ, iItem)
+                    iItem?.let { args.putParcelable(Constants.MOVIE_OBJ, it) }
                     arguments = args
                 }
     }
@@ -55,8 +55,9 @@ class DescriptionFragment: Fragment()
         movieObject?.let {
             tv_frag_description_title?.text = it.title
             iv_frag_description_poster?.let {
-//                GlideApp.with(it).load("https://image.tmdb.org/t/p/w500/${movieObject!!.poster_path}").placeholder(R.mipmap.ic_launcher).into(it)}
-                DataBindingAdapter.setImageUri(iv_frag_description_poster, "https://image.tmdb.org/t/p/w500/${movieObject!!.poster_path}") }
+                //                GlideApp.with(it).load("https://image.tmdb.org/t/p/w500/${movieObject!!.poster_path}").placeholder(R.mipmap.ic_launcher).into(it)}
+                DataBindingAdapter.setImageUri(iv_frag_description_poster, "https://image.tmdb.org/t/p/w500/${movieObject!!.poster_path}")
+            }
             tv_frag_description_date?.text = it.release_date
             tv_frag_description_rate?.text = it.vote_average.toString()
             tv_frag_description_description?.text = it.overview_content

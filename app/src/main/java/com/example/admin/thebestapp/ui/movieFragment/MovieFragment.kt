@@ -43,7 +43,9 @@ class MovieFragment: Fragment()
     
     interface OnMovieSelected
     {
-        fun setMovie(iItem: MovieObject)
+        fun showMovieDescription(iItem: MovieObject)
+        
+        var saveFirstMovie: MovieObject?
     }
     
     private var movieSelectedListener: OnMovieSelected? = null
@@ -77,6 +79,7 @@ class MovieFragment: Fragment()
                             Timber.d("viewModel- list: ${it?.size}")
                             showEmptyState(it?.size == 0)
                             movieAdapter.submitList(it)
+                            if(movieSelectedListener?.saveFirstMovie == null) it?.let{it[0]?.let{movieSelectedListener?.saveFirstMovie = it}}
                         } //
                 )
         
@@ -164,6 +167,7 @@ class MovieFragment: Fragment()
     
     private fun setMovie(iItem: MovieObject)
     {
-        movieSelectedListener?.setMovie(iItem)
+        movieSelectedListener?.showMovieDescription(iItem)
+        movieSelectedListener?.saveFirstMovie = iItem
     }
 }

@@ -10,6 +10,8 @@ import com.example.admin.thebestapp.ui.movieFragment.MovieFragment
 
 class MovieActivity: AppCompatActivity(), MovieFragment.OnMovieSelected
 {
+    override var saveFirstMovie: MovieObject? = null
+    
     private var actionBarTitle: String = ""
         set(value)
         {
@@ -23,10 +25,20 @@ class MovieActivity: AppCompatActivity(), MovieFragment.OnMovieSelected
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
         isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-        
         actionBarTitle = getString(R.string.pop_movies)
         
+        if(savedInstanceState != null)
+        {
+            saveFirstMovie = savedInstanceState.getParcelable("SER")
+        }
+        
         setRootFragment()
+    }
+    
+    public override fun onSaveInstanceState(outState: Bundle)
+    {
+        outState.putParcelable("SER", saveFirstMovie)
+        super.onSaveInstanceState(outState)
     }
     
     private fun setRootFragment()
@@ -46,18 +58,25 @@ class MovieActivity: AppCompatActivity(), MovieFragment.OnMovieSelected
                     .commit()
         }
         
-        if(!isPortrait && supportFragmentManager.findFragmentByTag(DescriptionFragment.frag_tag) == null)
+        if(!isPortrait)
         {
-            supportFragmentManager.beginTransaction().replace( //
-                    R.id.fl_activity_description_container, //
-                    //                    DescriptionFragment.newInstance(), //
-                    DescriptionFragment(), //
-                    DescriptionFragment.frag_tag) //
-                    .commit()
+            if(supportFragmentManager.findFragmentByTag(DescriptionFragment.frag_tag) == null)
+            {
+                supportFragmentManager.beginTransaction().replace( //
+                        R.id.fl_activity_description_container, //
+                        DescriptionFragment.newInstance(saveFirstMovie), //
+                        //                    DescriptionFragment(), //
+                        DescriptionFragment.frag_tag) //
+                        .commit()
+            }
+            else
+            {
+                saveFirstMovie?.let { (supportFragmentManager.findFragmentByTag(DescriptionFragment.frag_tag) as DescriptionFragment).setMovie(it) }
+            }
         }
     }
     
-    override fun setMovie(iItem: MovieObject)
+    override fun showMovieDescription(iItem: MovieObject)
     {
         val articleFrag = supportFragmentManager.findFragmentByTag(DescriptionFragment.frag_tag) as DescriptionFragment?
         
