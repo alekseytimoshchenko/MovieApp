@@ -3,10 +3,12 @@ package com.example.admin.thebestapp.ui
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import com.example.admin.thebestapp.R
 import com.example.admin.thebestapp.data.remote.model.MovieObject
 import com.example.admin.thebestapp.ui.descriptionFragment.DescriptionFragment
 import com.example.admin.thebestapp.ui.movieFragment.MovieFragment
+
 
 class MovieActivity: AppCompatActivity(), MovieFragment.OnMovieSelected
 {
@@ -25,7 +27,6 @@ class MovieActivity: AppCompatActivity(), MovieFragment.OnMovieSelected
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
         isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-        actionBarTitle = getString(R.string.pop_movies)
         
         if(savedInstanceState != null)
         {
@@ -35,10 +36,32 @@ class MovieActivity: AppCompatActivity(), MovieFragment.OnMovieSelected
         setRootFragment()
     }
     
+    override fun onResume()
+    {
+        super.onResume()
+        actionBarTitle = getString(R.string.pop_movies)
+    }
+    
     public override fun onSaveInstanceState(outState: Bundle)
     {
         outState.putParcelable("SER", saveFirstMovie)
         super.onSaveInstanceState(outState)
+    }
+    
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean
+    {
+        return when(item?.itemId)
+        {
+            android.R.id.home ->
+            {
+                supportFragmentManager.findFragmentByTag(DescriptionFragment.frag_tag)?.let {
+                    if(it.isAdded && isPortrait) onBackPressed()
+                }
+                true
+            }
+            
+            else -> super.onOptionsItemSelected(item)
+        }
     }
     
     private fun setRootFragment()

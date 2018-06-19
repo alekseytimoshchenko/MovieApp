@@ -1,7 +1,9 @@
 package com.example.admin.thebestapp.ui.descriptionFragment
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,10 +30,13 @@ class DescriptionFragment: Fragment()
                 }
     }
     
+    private var isPortrait: Boolean = false
+    
     private var movieObject: MovieObject? = null
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
+        isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
         return inflater.inflate(R.layout.frag_description, container, false)
     }
     
@@ -42,6 +47,31 @@ class DescriptionFragment: Fragment()
         val bundle = arguments
         movieObject = bundle?.getParcelable(Constants.MOVIE_OBJ)
         setUi()
+    }
+    
+    override fun onDestroyView()
+    {
+        super.onDestroyView()
+        showBackButton(false)
+        setTitleText(getString(R.string.pop_movies))
+    }
+    
+    override fun onResume()
+    {
+        super.onResume()
+        showBackButton(isPortrait)
+        setTitleText(getString(R.string.movie_details))
+    }
+    
+    private fun setTitleText(text: String)
+    {
+        (activity as? AppCompatActivity)?.supportActionBar?.title = text
+    }
+    
+    private fun showBackButton(state: Boolean)
+    {
+         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(state)
+         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowHomeEnabled(state)
     }
     
     fun setMovie(iItem: MovieObject)
