@@ -6,7 +6,6 @@ import android.net.Uri
 import android.widget.ImageView
 import com.example.admin.thebestapp.R
 import com.example.admin.thebestapp.utils.ui.GlideApp
-import com.squareup.picasso.Picasso
 
 object DataBindingAdapter
 {
@@ -29,10 +28,7 @@ object DataBindingAdapter
         }
         else
         {
-            Picasso.get()
-                    .load(Uri.parse(imageUri))
-                    .placeholder(R.mipmap.ic_launcher)
-                    .into(view)
+            GlideApp.with(view).load(imageUri).placeholder(R.mipmap.ic_launcher).into(view)
         }
     }
     

@@ -9,7 +9,6 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -128,9 +127,6 @@ class MovieFragment: Fragment()
     
     private fun initializeRecycler()
     {
-        val decoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-        rv_frag_movie_movie_list.addItemDecoration(decoration)
-        
         if(isPortrait)
         {
             rv_frag_movie_movie_list.layoutManager = GridLayoutManager(context, 2)
