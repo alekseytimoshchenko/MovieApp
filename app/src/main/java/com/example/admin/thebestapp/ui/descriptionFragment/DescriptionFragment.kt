@@ -63,6 +63,11 @@ class DescriptionFragment: Fragment()
         setTitleText(getString(R.string.movie_details))
     }
     
+    override fun onDetach()
+    {
+        super.onDetach()
+    }
+    
     private fun setTitleText(text: String)
     {
         (activity as? AppCompatActivity)?.supportActionBar?.title = text
@@ -70,8 +75,8 @@ class DescriptionFragment: Fragment()
     
     private fun showBackButton(state: Boolean)
     {
-         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(state)
-         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowHomeEnabled(state)
+        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(state)
+        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowHomeEnabled(state)
     }
     
     fun setMovie(iItem: MovieObject)
@@ -85,7 +90,6 @@ class DescriptionFragment: Fragment()
         movieObject?.let {
             tv_frag_description_title?.text = it.title
             iv_frag_description_poster?.let {
-                //                GlideApp.with(it).load("https://image.tmdb.org/t/p/w500/${movieObject!!.poster_path}").placeholder(R.mipmap.ic_launcher).into(it)}
                 DataBindingAdapter.setImageUri(iv_frag_description_poster, "https://image.tmdb.org/t/p/w500/${movieObject!!.poster_path}")
             }
             tv_frag_description_date?.text = it.release_date
