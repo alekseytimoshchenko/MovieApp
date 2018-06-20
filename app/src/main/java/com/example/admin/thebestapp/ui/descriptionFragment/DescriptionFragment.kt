@@ -1,7 +1,9 @@
 package com.example.admin.thebestapp.ui.descriptionFragment
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +15,28 @@ import kotlinx.android.synthetic.main.frag_description.*
 
 class DescriptionFragment: Fragment()
 {
+    companion object
+    {
+        var frag_tag: String = ""
+            private set
+            get() = DescriptionFragment::class.java.simpleName.toString()
+        
+        fun newInstance(iItem: MovieObject?): DescriptionFragment //
+                = DescriptionFragment() //
+                .apply {
+                    val args = Bundle()
+                    iItem?.let { args.putParcelable(Constants.MOVIE_OBJ, it) }
+                    arguments = args
+                }
+    }
+    
+    private var isPortrait: Boolean = false
+    
     private var movieObject: MovieObject? = null
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
+        isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
         return inflater.inflate(R.layout.frag_description, container, false)
     }
     
@@ -29,6 +49,31 @@ class DescriptionFragment: Fragment()
         setUi()
     }
     
+    override fun onDestroyView()
+    {
+        super.onDestroyView()
+        showBackButton(false)
+        setTitleText(getString(R.string.pop_movies))
+    }
+    
+    override fun onResume()
+    {
+        super.onResume()
+        showBackButton(isPortrait)
+        setTitleText(getString(R.string.movie_details))
+    }
+    
+    private fun setTitleText(text: String)
+    {
+        (activity as? AppCompatActivity)?.supportActionBar?.title = text
+    }
+    
+    private fun showBackButton(state: Boolean)
+    {
+         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(state)
+         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowHomeEnabled(state)
+    }
+    
     fun setMovie(iItem: MovieObject)
     {
         movieObject = iItem
@@ -39,7 +84,10 @@ class DescriptionFragment: Fragment()
     {
         movieObject?.let {
             tv_frag_description_title?.text = it.title
-            iv_frag_description_poster?.let { DataBindingAdapter.setImageUri(iv_frag_description_poster, "https://image.tmdb.org/t/p/w500/${movieObject!!.poster_path}") }
+            iv_frag_description_poster?.let {
+                //                GlideApp.with(it).load("https://image.tmdb.org/t/p/w500/${movieObject!!.poster_path}").placeholder(R.mipmap.ic_launcher).into(it)}
+                DataBindingAdapter.setImageUri(iv_frag_description_poster, "https://image.tmdb.org/t/p/w500/${movieObject!!.poster_path}")
+            }
             tv_frag_description_date?.text = it.release_date
             tv_frag_description_rate?.text = it.vote_average.toString()
             tv_frag_description_description?.text = it.overview_content

@@ -26,6 +26,15 @@ import javax.inject.Inject
 
 class MovieFragment: Fragment()
 {
+    companion object
+    {
+        var frag_tag: String = ""
+            private set
+            get() = MovieFragment::class.java.simpleName.toString()
+    
+        fun newInstance() = MovieFragment()
+    }
+    
     @Inject
     lateinit var factory: ViewModelProvider.NewInstanceFactory
     
@@ -33,10 +42,12 @@ class MovieFragment: Fragment()
     
     interface OnMovieSelected
     {
-        fun setMovie(iItem: MovieObject)
+        fun showMovieDescription(iItem: MovieObject)
+        
+        var saveFirstMovie: MovieObject?
     }
     
-    private lateinit var movieSelectedListener: OnMovieSelected
+    private var movieSelectedListener: OnMovieSelected? = null
     
     private lateinit var movieAdapter: MovieAdapter
     
@@ -67,6 +78,7 @@ class MovieFragment: Fragment()
                             Timber.d("viewModel- list: ${it?.size}")
                             showEmptyState(it?.size == 0)
                             movieAdapter.submitList(it)
+                            if(movieSelectedListener?.saveFirstMovie == null) it?.let{it[0]?.let{movieSelectedListener?.saveFirstMovie = it}}
                         } //
                 )
         
@@ -143,8 +155,15 @@ class MovieFragment: Fragment()
         }
     }
     
+    override fun onDetach()
+    {
+        super.onDetach()
+        movieSelectedListener = null
+    }
+    
     private fun setMovie(iItem: MovieObject)
     {
-        movieSelectedListener.setMovie(iItem)
+        movieSelectedListener?.showMovieDescription(iItem)
+        movieSelectedListener?.saveFirstMovie = iItem
     }
 }
