@@ -3,12 +3,12 @@ package com.example.admin.thebestapp.ui.descriptionFragment
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.admin.thebestapp.R
 import com.example.admin.thebestapp.data.remote.model.MovieObject
+import com.example.admin.thebestapp.ui.MovieActivity
 import com.example.admin.thebestapp.utils.Constants
 import com.example.admin.thebestapp.utils.ui.binding.DataBindingAdapter
 import kotlinx.android.synthetic.main.frag_description.*
@@ -52,30 +52,8 @@ class DescriptionFragment: Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
-        showBackButton(false)
-        setTitleText(getString(R.string.pop_movies))
-    }
-    
-    override fun onResume()
-    {
-        super.onResume()
-        
-        if(isPortrait)
-        {
-            showBackButton(isPortrait)
-            setTitleText(getString(R.string.movie_details))
-        }
-    }
-    
-    private fun setTitleText(text: String)
-    {
-        (activity as? AppCompatActivity)?.supportActionBar?.title = text
-    }
-    
-    private fun showBackButton(state: Boolean)
-    {
-        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(state)
-        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowHomeEnabled(state)
+        (activity as? MovieActivity)?.showBackButton(false)
+        (activity as? MovieActivity)?.setTitleText(getString(R.string.pop_movies))
     }
     
     fun setMovie(iItem: MovieObject)

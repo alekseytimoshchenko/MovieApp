@@ -36,6 +36,17 @@ class MovieActivity: AppCompatActivity(), MovieFragment.OnMovieSelected
         setRootFragment()
     }
     
+    fun setTitleText(text: String)
+    {
+        supportActionBar?.title = text
+    }
+    
+    fun showBackButton(state: Boolean)
+    {
+        supportActionBar?.setDisplayHomeAsUpEnabled(state)
+        supportActionBar?.setDisplayShowHomeEnabled(state)
+    }
+    
     override fun onResume()
     {
         super.onResume()
@@ -125,6 +136,8 @@ class MovieActivity: AppCompatActivity(), MovieFragment.OnMovieSelected
                 supportFragmentManager.executePendingTransactions()
                 
                 frag.setMovie(iItem)
+                setTitleText(getString(R.string.movie_details))
+                showBackButton(isPortrait)
             }
             else
             {
@@ -139,6 +152,9 @@ class MovieActivity: AppCompatActivity(), MovieFragment.OnMovieSelected
                     DescriptionFragment.frag_tag) //
                     .addToBackStack(DescriptionFragment.frag_tag) //
                     .commit()
+    
+            setTitleText(getString(R.string.movie_details))
+            showBackButton(isPortrait)
         }
     }
 }
