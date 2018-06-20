@@ -59,13 +59,12 @@ class DescriptionFragment: Fragment()
     override fun onResume()
     {
         super.onResume()
-        showBackButton(isPortrait)
-        setTitleText(getString(R.string.movie_details))
-    }
-    
-    override fun onDetach()
-    {
-        super.onDetach()
+        
+        if(isPortrait)
+        {
+            showBackButton(isPortrait)
+            setTitleText(getString(R.string.movie_details))
+        }
     }
     
     private fun setTitleText(text: String)

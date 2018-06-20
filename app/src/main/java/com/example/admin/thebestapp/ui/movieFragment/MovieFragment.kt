@@ -78,7 +78,7 @@ class MovieFragment: Fragment()
                             Timber.d("viewModel- list: ${it?.size}")
                             showEmptyState(it?.size == 0)
                             movieAdapter.submitList(it)
-                            if(movieSelectedListener?.saveFirstMovie == null) it?.let{it[0]?.let{movieSelectedListener?.saveFirstMovie = it}}
+                            if(movieSelectedListener?.saveFirstMovie == null) it?.let{ if (it.isNotEmpty()) it[0]?.let{movieSelectedListener?.saveFirstMovie = it}}
                         } //
                 )
         
